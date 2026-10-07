@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.11" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Simap API Changelog</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Simap API Changelog</h1>
+</header>
+<p>The API Documentation can be found <a href="/api-doc">here</a>.</p>
+<h2 id="changelog-v1.5.1">Changelog v1.5.1</h2>
+<h3 id="add-timestamp-to-qnapublishresponse">Add timestamp to
+<code>QnaPublishResponse</code></h3>
+<p>Added the <code>questionAnsweredAt</code> timestamp to the
+<code>QnaPublishResponse</code> so that after publishing questions, one
+doesn’t need to query the questions again to get the stored
+timestamp.</p>
+<p>Related endpoints:</p>
+<ul>
+<li><code>/api/qnas/v1/rounds/{roundId}/qna/{qnaId}/publish</code></li>
+<li><code>/api/qnas/v1/rounds/{roundId}/publish</code></li>
+</ul>
+<h4 id="breaking-change">Breaking change?</h4>
+<p>No</p>
+<hr />
+<h2 id="changelog-v1.5.0">Changelog v1.5.0</h2>
+<h3 id="add-validation-for-usernames">Add validation for usernames</h3>
+<p>Added validation for updating the users name to prevent special
+characters in the firstName and lastName for the endpoint
+<code>/api/users/v1/my</code>.</p>
+<p>The forbidden characters are:</p>
+<ul>
+<li><code>^</code> <code>&lt;</code> <code>&gt;</code>
+<code>&amp;</code> <code>"</code> <code>$</code> <code>%</code>
+<code>!</code> <code>#</code> <code>?</code> <code>§</code>
+<code>;</code> <code>*</code> <code>~</code> <code>\</code>
+<code>|</code> <code>^</code> <code>=</code> <code>[</code>
+<code>]</code> <code>{</code> <code>}</code> <code>(</code>
+<code>)</code></li>
+<li><code>\v</code> - vertical whitespace character</li>
+<li><code>\p{Cntrl}</code> - any characters in the Cntrl script
+extension</li>
+</ul>
+<h4 id="breaking-change-1">Breaking change?</h4>
+<p>No</p>
+<h3 id="add-additional-wto-statistics-filter-types">Add additional WTO
+statistics filter types</h3>
+<p>Added new filter types to <code>procOfficeTypeFilter</code> for the
+WTO statistics export endpoint
+<code>/api/statistics/v1/my/wto-statistics</code>. Additional filter
+types are:</p>
+<ul>
+<li><code>entire_federal_administration</code></li>
+<li><code>cantonal_or_other_cantonal</code></li>
+<li><code>communal_or_other_communal</code></li>
+</ul>
+<p>The <code>entire_federal_administration</code> can be only used by
+the role <code>competence_centre_admin</code>.</p>
+<p>The <code>cantonal_or_other_cantonal</code> and
+<code>communal_or_other_communal</code> can be only used by the role
+<code>simap_admin</code>.</p>
+<p>Only the roles <code>competence_centre_admin</code> and
+<code>simap_admin</code> can use the filter
+<code>procOfficeTypeFilter</code>.</p>
+<h4 id="breaking-change-2">Breaking change?</h4>
+<p>No</p>
+<h3 id="allow-the-cpccode-in-all-project-variants">Allow the
+<code>cpcCode</code> in all project variants</h3>
+<p>Added the additional property <code>cpcCode</code> to the procurement
+and lot models of <code>pubDrafts</code> and <code>publications</code>.
+This affects tenders, study contracts, competitions and awards.</p>
+<p>Now all project variants can use the <strong>optional</strong>
+<code>cpcCode</code> in their publications. Only in tender supply
+projects the cpc code is not allowed.</p>
+<p>The usage of the <code>cpcCode</code> did not change. Is declared
+once per project / publication. In projects with lots it’s declared in
+the project procurement data, the same way as the main
+<code>cpvCode</code>.</p>
+<p>The following models are affected:</p>
+<ul>
+<li><code>PubDraftAwardTenderProcurementConstruction</code></li>
+<li><code>PubDraftDirectAwardTenderProcurementConstruction</code></li>
+<li><code>PubDraftTenderProcurementConstruction</code></li>
+<li><code>PubDraftProcurement</code></li>
+<li><code>PublicationAwardTenderProcurementConstruction</code></li>
+<li><code>PublicationDirectAwardTenderProcurementConstruction</code></li>
+<li><code>PublicationTenderProcurementConstruction</code></li>
+<li><code>PublicationProcurement</code></li>
+</ul>
+<h4 id="breaking-change-3">Breaking change?</h4>
+<p>No</p>
+<h3
+id="allow-tender-projects-with-lots-to-change-the-ordertype-of-individual-lots">Allow
+tender projects with lots to change the <code>orderType</code> of
+individual lots</h3>
+<p>Added the new endpoint
+<code>/api/pub-drafts/v1/tender/{pubDraftId}/lots/{lotId}/order-type</code>
+that allows one to change the <code>orderType</code> of an individual
+<code>tender</code> lot.</p>
+<p>This can only be done when the tender project is in the
+<code>open</code> or <code>selective</code> process. Also, the type of a
+lot can’t be changed in a correction or when the lot was already present
+in an <code>advanced_notice</code>.</p>
+<p>The <code>orderType</code> chosen when creating the project will not
+change and is the main type for the project.</p>
+<p>Only for the lot with changed type, the new type applies. This mostly
+affects the procurement information of a lot, the available fields and
+the applied validation. If a <code>supply</code> lot changes to a
+<code>construction</code> lot, now the validations of the
+<code>construction</code> type is used.</p>
+<p>Use the existing discriminator properties on the tender lot
+(<code>orderType</code>) to differentiate between the different lot
+types.</p>
+<p>For the editing of a draft publication, we added the
+<code>canLotTypeBeChanged</code> boolean property to the
+<code>PubDraftBaseLot</code> composition model. So every lot variant
+will inherit this property. For all non tender lots the value will be
+<code>false</code>.</p>
+<p>For the type change we introduce the new error code
+<code>E0080 - Cannot change the projectSubType of the given lot</code>.
+Note; the <code>projectSubType</code> is the generic type that contains
+all sub types (<code>orderType</code>, <code>competitionType</code>,
+<code>studyType</code>) of the projects</p>
+<p>The information of the lot type, the <code>projectSubType</code>, is
+added to the
+<code>PubDraftLotDescription / PublicationLotDescription</code> models
+that are used in the base models
+(<code>PubDraftBase / PublicationBase</code>), the details and the
+project headers.</p>
+<h4 id="breaking-change-4">Breaking change?</h4>
+<p>No, the polymorphism of the tender lots was already declared and the
+new properties are read-only.</p>
+<p>So be aware that tender projects now can contain lots of different
+types / models.<br />
+Depending on your implementation you’ll need to adapt your handling of
+the lot data.</p>
+<h3 id="add-language-filter-to-subscriptions">Add language filter to
+subscriptions</h3>
+<p>Added the ability to save the <code>lang</code> filter property to
+the subscriptions. Affected is the <code>/api/subscriptions/v1/my</code>
+endpoint.</p>
+<p>The language filter, allows to search the indexed publications fields
+in the specified languages. If the property is not defined or empty and
+a search term is given, then we search in all languages.</p>
+<h4 id="breaking-change-5">Breaking change?</h4>
+<p>No</p>
+<h3
+id="add-the-projectsubtype-property-to-the-projecttypefields-composition-model">Add
+the <code>projectSubType</code> property to the
+<code>ProjectTypeFields</code> composition model</h3>
+<p>A bit of housekeeping, added the <code>projectSubType</code> property
+to the <code>ProjectTypeFields</code> composition model.</p>
+<p>This affects the public and proc office project header and the
+following models of the submissions:</p>
+<ul>
+<li><code>VendorDigitalSubmissionBase</code></li>
+<li><code>ProcOfficeVendorDigitalSubmissions</code></li>
+<li><code>VendorDigitalSubmissionDetails</code></li>
+</ul>
+<p>The <code>orderType</code>, <code>studyType</code> and
+<code>competitionType</code> properties where marked as deprecated as
+the <code>projectSubType</code> replaces these properties, provides the
+information in one field. So you no longer need to check three different
+properties.</p>
+<p>The deprecated properties will be removed in a future release.</p>
+<h4 id="breaking-change-6">Breaking change?</h4>
+<p>No, be aware of the deprecations for the <code>orderType</code>,
+<code>studyType</code> and <code>competitionType</code> property.</p>
+<h3
+id="limit-search-term-length-to-1000-characters-for-projects-and-subscriptions">Limit
+search term length to 1000 characters for projects and
+subscriptions</h3>
+<p>The search term length of the <code>search</code> parameter for
+projects and subscriptions has been limited to 1000 characters.</p>
+<p>Affected endpoints:</p>
+<ul>
+<li><code>/publications/v2/project/project-search</code></li>
+<li><code>/subscriptions/v1/my</code></li>
+</ul>
+<h4 id="breaking-change-7">Breaking change?</h4>
+<p>No</p>
+<h3
+id="add-new-validation-error-for-publications-in-state-contract-area">Add
+new validation error for publications in state contract area</h3>
+<p>New publications with <code>state_cotract_area=true</code> require
+either the creation language or a translation being a WTO-language.</p>
+<p>Supported WTO languages are French and English.</p>
+<p>If neither is the creation language nor a translation the new
+validation-error <code>state_contract_requires_wto_language</code> will
+be returned in the field <code>project-info::stateContractArea</code> of
+the validation response.</p>
+<p>Note: the change does not apply for awards that follow existing
+publications that do not yet fulfill this requirement.</p>
+<h4 id="breaking-change-8">Breaking change?</h4>
+<p>No</p>
+<h3 id="add-flag-hasprojectdocuments-on-publication-models">Add flag
+<code>hasProjectDocuments</code> on publication-models</h3>
+<p>The new flag <code>hasProjectDocuments</code> indicates the presence
+of downloadable documents on the publication.</p>
+<p>It’s independent of any user-role and therefore can be
+<code>true</code> even if e.g. anonymous user doesn’t have the
+sufficient privilege to actually download/view the documents.</p>
+<p>Affected endpoints are namely:</p>
+<ul>
+<li><code>/publications/v1/project/{projectId}/publication-details/{publicationId}</code></li>
+<li><code>/publications/v1/publication/{currentPublicationId}/past-publications</code></li>
+<li><code>/publications/v2/project/{projectId}/project-header</code></li>
+</ul>
+<h4 id="breaking-change-9">Breaking Change?</h4>
+<p>No</p>
+<h3 id="add-filter-parameters-to-the-vendors-search">Add filter
+parameters to the vendors search</h3>
+<p>Additional filter parameters to the search of vendors have been
+added.</p>
+<p>Affected is the endpoint:</p>
+<ul>
+<li><code>/vendors/v1</code></li>
+</ul>
+<p>New filters include:</p>
+<ul>
+<li><code>typeOfServices</code></li>
+<li><code>cpvCodes</code></li>
+<li><code>bkpCodes</code></li>
+<li><code>ebkphCodes</code></li>
+<li><code>ebkptCodes</code></li>
+<li><code>npkCodes</code></li>
+<li><code>oagCodes</code></li>
+</ul>
+<p>All filters are optional. The search input can now also be optional
+and is not mandatory anymore. But at least the search input or one of
+the filters has to be specified, a search query without a search input
+nor filter is not allowed. Filters and search input are combined using a
+logical AND.</p>
+<h4 id="breaking-change-10">Breaking change?</h4>
+<p>No</p>
+<h3 id="new-endpoints-to-manage-sustainability-form-triggers">New
+endpoints to manage sustainability form triggers</h3>
+<p>The competence centre “Confederation” can now manage the
+sustainability form triggers with the following endpoints:</p>
+<ul>
+<li><code>GET /api/sustainability/v1/triggers</code></li>
+<li><code>PUT /api/sustainability/v1/triggers/{sustainabilityTriggerId}</code></li>
+<li><code>DELETE /api/sustainability/v1/triggers/{sustainabilityTriggerId}</code></li>
+</ul>
+<p>The product-categories are needed for the triggers and can not be
+changed. The categories do not have a translation and are only available
+in German.</p>
+<ul>
+<li><code>GET /api/sustainability/v1/product-categories</code></li>
+</ul>
+<p>The categories are available per competence-centre. As there are only
+categories for the competence-centre “Confederation” every other
+competence-centre will not be able to use this feature, which behaves as
+specified.</p>
+<hr />
+<h2 id="changelog-v1.4.0">Changelog v1.4.0</h2>
+<h3 id="history-apis">History APIs</h3>
+<h3 id="user-history">User History</h3>
+<p>Add new endpoints to get the own user’s history. A user can only get
+his own history. There are three new endpoints for the user history:</p>
+<ul>
+<li><code>GET /api/users/v1/my/history/mutations</code></li>
+<li><code>GET /api/users/v1/my/history/proc-office-memberships</code></li>
+<li><code>GET /api/users/v1/my/history/vendor-memberships</code></li>
+</ul>
+<p>The response is sorted descending by last history modification.</p>
+<h4 id="procurement-office-history">Procurement Office History</h4>
+<p>Add new endpoints to get the procurement office’s history. Only
+procurement admins can access the history of procurement offices they
+are members of. There are three new endpoints for the procurement office
+history:</p>
+<ul>
+<li><code>GET /api/procoffices/v1/my/history/memberships</code></li>
+<li><code>GET /api/procoffices/v1/my/history/base-data</code></li>
+<li><code>GET /api/procoffices/v1/my/history/address-data</code></li>
+</ul>
+<p>The response is sorted descending by last history modification.</p>
+<h4 id="project-history-for-procurement-office">Project History for
+Procurement Office</h4>
+<p>Add new endpoints to get the procurement office project’s history.
+All procurement office users can access the history of procurement
+office projects they are contributing to. There are seven new endpoints
+for the procurement office project history:</p>
+<ul>
+<li><code>GET /api/procoffices/v1/my/projects/{projectId}/history/publications</code></li>
+<li><code>GET /api/procoffices/v1/my/projects/{projectId}/history/qnas</code></li>
+<li><code>GET /api/procoffices/v1/my/projects/{projectId}/history/qnas/{hid}</code></li>
+<li><code>GET /api/procoffices/v1/my/projects/{projectId}/history/involvements</code></li>
+<li><code>GET /api/procoffices/v1/my/projects/{projectId}/history/vendor-messages</code></li>
+<li><code>GET /api/procoffices/v1/my/projects/{projectId}/history/project-contributors</code></li>
+<li><code>GET /api/procoffices/v1/my/projects/{projectId}/history/document-downloads</code></li>
+</ul>
+<p>The response is sorted descending by last history modification.</p>
+<h4 id="vendor-history">Vendor History</h4>
+<p>Add new endpoints to get the vendor’s history. Only vendor admins can
+access the history of vendors they are members of. There are three new
+endpoints for the vendor history:</p>
+<ul>
+<li><code>GET /api/vendors/v1/my/history/memberships</code></li>
+<li><code>GET /api/vendors/v1/my/history/base-data</code></li>
+<li><code>GET /api/vendors/v1/my/history/address-data</code></li>
+</ul>
+<p>The response is sorted descending by last history modification.</p>
+<h4 id="project-history-for-vendor-project">Project History for Vendor
+Project</h4>
+<p>Add new endpoints to get the vendor project’s history. All vendor
+users can access the history of vendor projects they are contributing
+to. There are two new endpoints for the procurement office project
+history:</p>
+<ul>
+<li><code>GET /api/vendors/v1/my/projects/{projectId}/history/involvements</code></li>
+<li><code>GET /api/vendors/v1/my/projects/{projectId}/history/document-downloads</code></li>
+</ul>
+<p>The response is sorted descending by last history modification.</p>
+<h4 id="breaking-change-11">Breaking change?</h4>
+<p>No</p>
+<h3
+id="vendor-digital-submission-documents---pdf-signature-validation">Vendor
+Digital Submission Documents - PDF signature validation</h3>
+<p>Newly uploaded PDF documents of a vendor digital submission will be
+checked if they contain valid digital signatures.</p>
+<p>For this the <code>VendorDigitalSubmissionDocument</code> is updated.
+The <code>signature</code> property was added that contains the
+information about the validation status and date. The property is
+<code>null</code> for documents that are not pdf files.</p>
+<p>A pdf is only correctly signed, <code>valid</code>, when the document
+has at least one signature and only contains valid signatures that are
+signed with a QES / ZertES compliant certificate.</p>
+<p>When the pdf contains at least one signature that is not QES / ZertES
+compliant, the pdf is considered <code>invalid</code> even when that
+signature itself is valid.</p>
+<p>See also the description on the <code>PdfSignatures</code> model.</p>
+<h4 id="breaking-change-12">Breaking change?</h4>
+<p>No, addition of new read only properties.</p>
+<h3 id="deactivate-vendors">Deactivate Vendors</h3>
+<p>Added the ability to deactivate vendors at any time. This is a soft
+delete as the deactivated vendor can still be used in ongoing
+procurement projects. Deactivated vendors can not be added to a project
+by a proc office.</p>
+<p>New endpoint <code>DELETE /api/vendors/v1/my/deactivate</code> for a
+<code>vendor_admin</code> to deactivate their vendor.</p>
+<p>Additon of the read only <code>active</code> boolean flag to the
+<code>InvolvedVendor</code> model used by the proc office. Due to the
+composition, this adds the property also to the
+<code>InvolvedVendorWithActions</code> model.</p>
+<h4 id="breaking-change-13">Breaking change?</h4>
+<p>No, addition of a read-only property and a new endpoint.</p>
+<h3
+id="add-projectsubtype-to-the-basepublicationdata-composition-model">Add
+<code>projectSubType</code> to the <code>BasePublicationData</code>
+composition model</h3>
+<p>Added the <code>projectSubType</code> to the
+<code>BasePublicationData</code> composition model. Through the
+composition the following models now receive the property:</p>
+<ul>
+<li><code>PastPublicationsEntry</code></li>
+<li><code>PublicationToPublish</code></li>
+<li><code>ProcOfficeProjectHistoryPublication</code></li>
+<li><code>ProcOfficeProjectHeaderPubDraft</code></li>
+<li><code>PublicProjectHeaderPublication</code></li>
+</ul>
+<h4 id="breaking-change-14">Breaking change?</h4>
+<p>No, addition of a read-only property.</p>
+<h3
+id="rework-of-the-apis-to-retrieve-the-institution-tree-and-the-data-of-the-public-proc-offices">Rework
+of the APIs to retrieve the institution tree and the data of the public
+proc offices</h3>
+<h4 id="institution-api-changes">Institution API changes</h4>
+<p>The GET <code>/api/institutions/v1</code> endpoint is replaced by
+<code>/api/institutions/v1/institutions</code> that returns the
+institution tree as a flat list.</p>
+<p>Updated the url from
+<code>/api/institutions/v1/institution/{institutionId}</code> to
+<code>/api/institutions/v1/institutions/{institutionId}</code>.
+Pluralize the <code>institution</code> to <code>institutions</code> part
+in the path for consistency.</p>
+<p>Removal of the <code>/api/institutions/v1/po/search</code> endpoint.
+The search response with the tree hierarchy is no longer
+supported.<br />
+You need to migrate to the <code>/api/procoffices/v1/po/public</code>
+endpoint and use the <code>search</code> parameter to achieve the same
+functionality, searching for proc offices by name.</p>
+<p><strong>Amendment of the <code>Institution</code> model.</strong></p>
+<p>Removed the obsolete <code>hasInstitutions</code> and
+<code>hasProcOffices</code> properties.</p>
+<p>Added <code>parentInstitutionId</code> and <code>path</code>
+properties to the model.</p>
+<p>See the description on the model for more details.</p>
+<h4 id="proc-office-api-changes">Proc-Office API changes</h4>
+<p>The GET <code>/api/procoffices/v1/treeview</code> endpoint is
+replaced by <code>/api/procoffices/v1/po/public</code>.</p>
+<p>You need to migrate to this endpoint and use the
+<code>institutionId</code> parameter on
+<code>/api/procoffices/v1/po/public</code> to achieve the same
+functionality.</p>
+<h4 id="breaking-change-15">Breaking change?</h4>
+<p>Yes</p>
+<h3 id="removal-of-deprecated-properties-on-the-vendor-objects">Removal
+of deprecated properties on the vendor objects</h3>
+<p>The deprecated property <code>legalForm</code> the of
+<code>BaseVendor</code> object has been removed. Use the property
+<code>legalFormCode</code> instead.</p>
+<p>This change affects the following objects: - <code>Vendor</code> -
+<code>VendorDetail</code> - <code>VendorCreate</code> -
+<code>VendorHistoryBaseDataEntry</code> - not relevant as introduced
+with this release</p>
+<p>As this is a breaking change, the API version of the following
+endpoints has been bumped to v2: -
+<code>GET /api/vendors/v2/vendor/{vendorId}</code> -
+<code>PUT /api/vendors/v2/vendor/{vendorId}</code> -
+<code>PATCH /api/vendors/v2/vendor/{vendorId}</code> -
+<code>DELETE /api/vendors/v2/vendor/{vendorId}</code> -
+<code>POST /api/vendors/v2/verify-uid</code> -
+<code>POST /api/vendors/v2/verify-duns</code></p>
+<h4 id="breaking-change-16">Breaking change?</h4>
+<p>Yes</p>
+<h3 id="update-on-the-vendor-project-notification-settings">Update on
+the vendor project notification settings</h3>
+<p>Renamed the <code>notifyOnSubmitDigitalSubmission</code> to
+<code>notificationsForDigitalSubmissions</code> in the
+<code>VendorUserNotificationSettings</code> model. This setting now
+serves as a general flag for all digital submission-related
+notifications and not only for the submit action.</p>
+<p>As this is a breaking change, the API version of the
+<code>/api/vendors/v1/my/projects/{projectId}/my-notification-settings</code>
+endpoint has been bumped to v2.</p>
+<h4 id="breaking-change-17">Breaking change?</h4>
+<p>Yes</p>
+<h3 id="project-documents---update-metadata-of-project-document">Project
+Documents - update metadata of project document</h3>
+<p>Updated the <code>ProjectDocumentUpdate</code> model, removed the
+<code>fileName</code> property.</p>
+<p>The <code>fileName</code> of a document can no longer be changed.
+This feature was already not available in the Simap GUI. The changing of
+the name is no longer allowed and it was not intended to be
+possible.</p>
+<p>Also, with this change we allow the changing of metadata (langauge,
+note and lot association) after the publication was published.</p>
+<h4 id="breaking-change-18">Breaking change?</h4>
+<p>No, we don’t consider this a breaking change as exising request will
+sill work, the <code>fileName</code> property in the payload will be
+ignored.</p>
+<h3 id="improvements-sustainability-form">Improvements Sustainability
+Form</h3>
+<h4 id="sustainability-export-new-fields">Sustainability Export New
+Fields</h4>
+<p>Extended response of
+<code>/api/statistics/v2/my/sustainability-export</code> with additional
+fields:</p>
+<ul>
+<li><code>processType</code></li>
+<li><code>projectNumber</code></li>
+<li><code>lotNumber</code></li>
+<li><code>publicationDate</code></li>
+<li><code>totalPrice</code></li>
+<li><code>vendorNames</code></li>
+</ul>
+<h4 id="sustainability-form-newadjusted-fields">Sustainability Form
+New/Adjusted Fields</h4>
+<p>New fields:</p>
+<ul>
+<li>New Question H11, located in Model <code>H11</code>, Field
+<code>procurementSuitedForInnovativeSolution</code>
+<ul>
+<li>Supports following values:
+<ul>
+<li><code>yes</code></li>
+<li><code>no</code></li>
+<li><code>partly</code></li>
+</ul></li>
+<li>If <code>no</code> the fields of questions <code>H2</code>,
+<code>H3</code> and <code>H4</code> are reset to null</li>
+</ul></li>
+<li>New Question G21, located in Model <code>G21</code>, Field:
+<code>otherSustainabilityRequirementsBeenMet</code>
+<ul>
+<li>Supports following values:
+<ul>
+<li><code>yes_environmental_impact_assessments</code></li>
+<li><code>yes_following</code></li>
+<li><code>no</code></li>
+</ul></li>
+<li>If <code>yes_following</code> the field
+<code>otherSustainabilityRequirementsBeenMetDescription</code> is
+required</li>
+</ul></li>
+</ul>
+<p>Adjusted type of fields:</p>
+<ul>
+<li>In Question H1: Field <code>innovativeSolutionsAvailable</code>
+<ul>
+<li>Switched type from enum-values to boolean</li>
+<li>Migrated existing values as follows:
+<ul>
+<li>from <code>not_relevant</code> to <code>null</code></li>
+<li>from <code>no</code> to <code>false</code></li>
+<li>from <code>yes</code> to <code>true</code></li>
+</ul></li>
+</ul></li>
+<li>In Question F3, Field
+<code>evidencesSocialCriteriaComplianceProvided</code>:
+<ul>
+<li>Supports now following values:
+<ul>
+<li><code>signed_declaration_bkb</code></li>
+<li><code>signed_confirmation</code></li>
+<li><code>following_evidence</code></li>
+</ul></li>
+<li>Migrated <code>self_declaration</code> to
+<code>signed_declaration_bkb</code> others got removed</li>
+<li>If <code>following_evidence</code> is chosen the description-field
+<code>evidencesSocialCriteriaComplianceProvidedEvidence</code> is
+required</li>
+</ul></li>
+</ul>
+<p>Corrected behavior of fields:</p>
+<ul>
+<li>Correction for Question D1, Field
+<code>d1EvaluationCriteriaDimensionDefined</code>:
+<ul>
+<li>When <code>yes</code> the field
+<code>d1EvaluationCriteriaDimensionsDefined</code> isn’t prefilled with
+values anymore</li>
+</ul></li>
+</ul>
+<p>Increase the api version of the following endpoints due to breaking
+changes:</p>
+<ul>
+<li><code>/api/pub-drafts/v1/award/{pubDraftId}/sustainability</code>
+-&gt;
+<code>/api/pub-drafts/v2/award/{pubDraftId}/sustainability</code></li>
+<li><code>/api/statistics/v1/my/sustainability-export</code> -&gt;
+<code>/api/statistics/v2/my/sustainability-export</code></li>
+</ul>
+<h4 id="breaking-change-19">Breaking change?</h4>
+<p>Yes (type changes)</p>
+<hr />
+<h2 id="changelog-v1.3.0">Changelog v1.3.0</h2>
+<h3
+id="new-flag-offerdigitalexternalplatform-with-offerdigitalexternalplatformurl">New
+flag <code>offerDigitalExternalPlatform</code> with
+<code>offerDigitalExternalPlatformUrl</code></h3>
+<p>A new offer-type <code>offer_digital_external_platform</code> is
+added which indicates that vendor-submissions must be sent via an
+external digital platform. With it comes the field
+<code>offerDigitalExternalPlatformUrl</code> which points to the
+external platform.</p>
+<p><code>offerDigitalExternalPlatformUrl</code> will be sent to TED
+(<code>BT-18</code>) if the offer-type
+<code>offer_digital_external_platform</code> is present and offer-type
+<code>offer_digital_simap</code> is not.</p>
+<p>For consistency reasons a general renaming has been done:</p>
+<ul>
+<li><code>physical</code> is renamed to <code>external</code></li>
+</ul>
+<p>Affected by this renaming are following types, models and
+endpoints:</p>
+<ul>
+<li>PubOfferType: <code>offer_physical</code> -&gt;
+<code>offer_external</code></li>
+<li>ProcOfficeVendorActionType:
+<ul>
+<li><code>mark_offer_physical_submission</code> -&gt;
+<code>mark_offer_external_submission</code></li>
+<li><code>mark_participation_physical_submission</code> -&gt;
+<code>mark_participation_external_submission</code></li>
+<li><code>mark_request_for_information_physical_submission</code> -&gt;
+<code>mark_request_for_information_external_submission</code></li>
+</ul></li>
+<li>InvolvedVendorStatus:
+<ul>
+<li><code>offer_physical_submission</code> -&gt;
+<code>offer_external_submission</code></li>
+<li><code>participation_request_physical_submission</code> -&gt;
+<code>participation_request_external_submission</code></li>
+<li><code>request_for_information_physical_submission</code> -&gt;
+<code>request_for_information_external_submission</code></li>
+</ul></li>
+<li>Fields in model InvolvedVendor:
+<ul>
+<li><code>offerPhysicalSubmissionDateTime</code> -&gt;
+<code>offerExternalSubmissionDateTime</code></li>
+<li><code>participationPhysicalSubmissionDateTime</code> -&gt;
+<code>participationExternalSubmissionDateTime</code></li>
+<li><code>rfiPhysicalSubmissionDateTime</code> -&gt;
+<code>rfiExternalSubmissionDateTime</code></li>
+</ul></li>
+<li>Endpoints:
+<ul>
+<li><code>/api/procoffices/v2/my/projects/{projectId}/involved-vendors/{vendorId}/offer-physical-submission</code>
+-&gt;
+<code>/api/procoffices/v1/my/projects/{projectId}/involved-vendors/{vendorId}/offer-external-submission</code></li>
+<li><code>/api/procoffices/v2/my/projects/{projectId}/involved-vendors/{vendorId}/participation-physical-submission</code>
+-&gt;
+<code>/api/procoffices/v1/my/projects/{projectId}/involved-vendors/{vendorId}/participation-external-submission</code></li>
+<li><code>/api/procoffices/v2/my/projects/{projectId}/involved-vendors/{vendorId}/rfi-physical-submission</code>
+-&gt;
+<code>/api/procoffices/v1/my/projects/{projectId}/involved-vendors/{vendorId}/rfi-external-submission</code></li>
+</ul></li>
+</ul>
+<h3
+id="new-action-edit-internal-reference-of-a-project-for-proc-offices">New
+action <code>edit-internal-reference</code> of a project for proc
+offices</h3>
+<p>To edit the <code>internal-reference</code> of a project for proc
+offices a new endpoint is added:</p>
+<p><code>PATCH /api/procoffices/v1/my/projects/{projectId}/internal-reference</code></p>
+<p>The corresponding action for editing the reference is available in
+the proc office project header;
+<code>ProcOfficeProjectOtherActions.edit_internal_reference</code>.</p>
+<p>Also the addition of the limit of 70 chars for the
+<code>internalReference</code>. Previously only enforced in the
+frontend. The limit applies when creating a new project or updating the
+existing reference with the new patch endpoint.</p>
+<h3 id="zip-download">Zip Download</h3>
+<p>Three new endpoints added:</p>
+<ul>
+<li><code>/api/vendors/v1/my/projects/{projectId}/documents/zip-token</code></li>
+<li><code>/api/procoffices/v1/my/projects/{projectId}/documents/zip-token</code></li>
+<li><code>/api/project-documents/v1/docs/zip-download?token={downloadToken}</code></li>
+</ul>
+<p>The zip-download-endpoint provides a streaming output which allows
+downloading all the documents of a project as a zip-file (optional can
+be filtered for a specific lot or qna-round).</p>
+<p>For every zip-download a token has to be obtained via the respective
+zip-token-endpoint. The returned token consists of all the necessary
+information for the download.</p>
+<p>The zip-token-endpoints have the same filter-parameters as the
+search-endpoints:</p>
+<ul>
+<li><code>/api/vendors/v1/my/projects/{projectId}/documents</code></li>
+<li><code>/api/procoffices/v1/my/projects/{projectId}/documents</code></li>
+</ul>
+<p>Using the same filter-parameters the same documents will be
+returned/zipped.</p>
+<h4 id="breaking-change-20">Breaking change?</h4>
+<p>No</p>
+<h3
+id="allow-not_specified-for-field-contractdeadlinetype-on-tenders">Allow
+<code>not_specified</code> for field <code>contractDeadlineType</code>
+on tenders</h3>
+<p>The model-validation allows the value <code>not_specified</code> for
+field <code>contractDeadlineType</code>. The related fields
+<code>contractPeriod</code> and <code>contractDays</code> must be null
+in such a case.</p>
+<p>Following models contain this field:</p>
+<ul>
+<li><code>PubDraftTenderConstructionLot</code></li>
+<li><code>PubDraftTenderSupplyLot</code></li>
+<li><code>PubDraftTenderServiceLot</code></li>
+<li><code>PublicationTenderConstructionLot</code></li>
+<li><code>PublicationTenderSupplyLot</code></li>
+<li><code>PublicationTenderServiceLot</code></li>
+</ul>
+<h4 id="breaking-change-21">Breaking change?</h4>
+<p>No</p>
+<h3
+id="amendments-to-the-public-vendor-and-proc-office-search">Amendments
+to the public, vendor and proc-office search</h3>
+<h4
+id="refactored-publications-project-search-vendor-and-proc-office-projects-overview-model-and-endpoints">Refactored
+publications project-search, vendor and proc office projects-overview
+model and endpoints</h4>
+<p>Update the public project-search / vendor projects-overview model
+(<code>ProjectsSearchEntry</code>) and the proc-office
+(<code>ProcOfficeProjectsOverview</code>) model.</p>
+<p>The returned projects now contain the data of the
+project-search-detail / projects-overview-detail endpoints.</p>
+<p>You’ll find the <code>lots</code> data from the detail model on the
+returned entry with minor renaming of the properties for the new
+model.<br />
+The old project type properties,
+<code>orderType, studyType, competitionType</code>, are now available as
+a single value <code>projectSubType</code>.</p>
+<p>Additionally the information about the latest
+<code>orderAddress</code> of the project or the available lots
+respectively. See the property descriptions in the models for more
+details abut the availability of the address.</p>
+<p>As the project-search-detail / projects-overview-detail endpoints are
+redundant now, they are removed:</p>
+<ul>
+<li><code>/api/publications/v1/project/{projectId}/project-search-detail</code></li>
+<li><code>/api/vendors/v1/my/projects/{projectId}/projects-overview-detail</code></li>
+<li><code>/api/procoffices/v1/my/projects/{projectId}/projects-overview-detail</code></li>
+</ul>
+<p>Also, the api version was bumped to v2 for the following
+endpoints:</p>
+<ul>
+<li><code>/api/publications/v2/project/project-search</code></li>
+<li><code>/api/vendors/v2/my/projects/projects-overview</code></li>
+<li><code>/api/procoffices/v2/my/projects/projects-overview</code></li>
+</ul>
+<h4 id="new-public-project-search-filters">New public project search
+filters</h4>
+<p>Addition of the following query parameters to filter projects in the
+public search:</p>
+<ul>
+<li><code>orderAddressCountryOnlySwitzerland</code> - Filter for
+projects that take place in Switzerland.</li>
+<li><code>orderAddressCantons</code> - Filter for projects that take
+place in one of the specified cantons in Switzerland.</li>
+</ul>
+<p>For more details see the Documentation on the parameters on the
+<code>/publications/v2/project/project-search</code> endpoint.</p>
+<h4 id="breaking-change-22">Breaking change?</h4>
+<p>Yes</p>
+<p>Updated version of the existing endpoints and removal of the
+redundant endpoints.</p>
+<h3
+id="updated-subscription-model-for-the-new-public-project-search-filters">Updated
+Subscription model for the new public project search filters</h3>
+<p>Updated the <code>SubscriptionFilters</code> of the
+<code>Subscription</code> model. Added
+<code>orderAddressCountryOnlySwitzerland</code> and
+<code>orderAddressCantons</code>, the new filter parameters of the
+public project search.</p>
+<h4 id="breaking-change-23">Breaking change?</h4>
+<p>No, addition - new optional properties.</p>
+<h3 id="static-content-and-content-management">Static Content and
+Content Management</h3>
+<p>A new endpoint <code>/api/static/v1/pages/{pageName}</code> to fetch
+and update static content.</p>
+<p>This new endpoint offers basic content management functionality and
+supports two roles:</p>
+<ul>
+<li>public - no restrictions: Use the <code>GET</code> operation to
+retrieve content.</li>
+<li><code>simap-admin</code>: Use the <code>PATCH</code> operation to
+modify content.</li>
+</ul>
+<h4 id="content-organization">Content Organization</h4>
+<p>Content is organized into pages and tabs, which define the structure
+and navigation where content components are displayed.</p>
+<h4 id="predefined-structure">Predefined Structure</h4>
+<p>A fixed set of allowed page/tab combinations is available. These
+combinations are immutable and cannot be added or removed.</p>
+<h4 id="flexible-content-assignment">Flexible Content Assignment</h4>
+<p>Each page/tab combination can have multiple cards/content-components
+of any type assigned to it. These components must have a unique position
+within their tab. A tab can contain zero cards/content-components</p>
+<h4 id="positioning-rules">Positioning Rules</h4>
+<p>The position of a component must:</p>
+<ul>
+<li>Be unique within the tab.</li>
+<li>Not exceed the total number of components in the tab.</li>
+</ul>
+<h3
+id="update-the-http-method-on-the-reject-new-proc-office-endpoint-to-be-spec-compliant">Update
+the http method on the reject new proc office endpoint to be spec
+compliant</h3>
+<p>Transform the DELETE
+<code>/api/procoffices/v1/po/{procOfficeId}/reject</code> to a POST
+request to be compliant with the OpenAPI v3 specification that does not
+allow a DELETE request with a request body.</p>
+<p>No further changes to the request / endpoint.</p>
+<h4 id="breaking-change-24">Breaking change?</h4>
+<p>Yes, change of the http method.</p>
+<p>Note, as consumers you are probably not affected by this change, as
+this endpoint is used by the <code>competence_centre_admin</code> role
+and have no need to implement this endpoint as it’s used to administer
+newly registered proc offices.</p>
+<h3
+id="addition-of-missing-discriminator-properties-that-improve-the-deserialization-of-the-json-responses">Addition
+of missing discriminator properties that improve the deserialization of
+the json responses</h3>
+<p>Added the missing <code>projectType</code> discriminator property to
+the <code>PubDraftDetail</code> / <code>PublicationDetail</code> models.
+The property is used in the
+<code>PublicationAdvanceNoticeDetailDiscriminator</code> oneOf schema to
+determine the correct detail model.</p>
+<h4 id="breaking-change-25">Breaking change?</h4>
+<p>No, additional property on a read only model.</p>
+<h3 id="error-codes">Error Codes</h3>
+<p>New Error Codes where added which can occur at
+<code>/api/static/v1/pages/{pageName}</code>:</p>
+<ul>
+<li><code>E0073</code> - Invalid page/tab combination</li>
+<li><code>E0074</code> - Content component position duplicate</li>
+</ul>
+<h4
+id="improved-error-handling-in-case-url-fields-contain-an-invalid-url">Improved
+error-handling in case URL-fields contain an invalid url</h4>
+<ul>
+<li><code>E0076</code> - URL-field in the request body either contains
+invalid characters, is incorrectly escaped, contains no or an unknown
+protocol</li>
+</ul>
+<p>If an invalid url is sent the error-code <code>E0076</code> is
+returned now. Additionally, the affected fields will be listed in the
+error-response (field <code>errors</code>).</p>
+<p>All endpoints where the request-model contains an url-field can throw
+this new error:</p>
+<ul>
+<li><code>/api/pub-drafts/v1/${pubType.toEndpointUrlPart(projectKind)}/{pubDraftId}/dates</code>
+(field <code>externalLink</code>)</li>
+<li>project-info-endpoints
+<ul>
+<li><code>/api/pub-drafts/v1/tender/{pubDraftId}/project-info</code>
+*<code>/api/pub-drafts/v1/competition/{pubDraftId}/project-info</code></li>
+<li><code>/api/pub-drafts/v1/study-contract/{pubDraftId}/project-info</code></li>
+<li>(field <code>documentsSourceUrl</code>)</li>
+<li>(field <code>procOfficeAddress.url</code>)</li>
+<li>(field <code>documentsSourceAddress.url</code>)</li>
+<li>(field <code>offerAddress.url</code>)</li>
+<li>(field <code>procurementRecipientAddress.url</code>)</li>
+<li>(field <code>offerDigitalExternalPlatformUrl</code>)</li>
+</ul></li>
+<li><code>/api/vendors/v1/vendor/{vendorId}</code> (field
+<code>url</code>)</li>
+<li><code>/api/procoffices/v1/po/{procOfficeId}</code> (field
+<code>url</code>)</li>
+<li><code>/api/compcentres/v1/my/urls/{urlId}</code> (field
+<code>url</code>)</li>
+<li><code>/api/compcentres/v1/my/contacts/{contactId}</code> (field
+<code>websiteUrl</code>)</li>
+</ul>
+<hr />
+<h2 id="changelog-v1.2.1">Changelog v1.2.1</h2>
+<h3
+id="new-information-and-stricter-validation-for-digital-submissions-of-vendors">New
+information and stricter validation for digital submissions of
+vendors</h3>
+<p>Added the <code>hasDocuments</code> property to the
+<code>PublicProjectHeaderVendorDigitalSubmissionInfo</code> model. The
+flag describes if a submission has any documents uploaded. Empty digital
+submissions can not be submitted.</p>
+<p><code>PublicProjectHeaderVendorDigitalSubmissionInfo</code> is part
+of the the <code>PublicProjectHeader</code> as
+<code>latestVendorDigitalSubmission</code>. See also the
+<code>/api/publications/v2/project/{projectId}/project-header</code>
+endpoint.</p>
+<p>New dedicated error code,
+<code>E0075 - Digital Submission without documents</code>, for the
+submit of empty offers on
+<code>/api/vendors/v1/my/digital-submissions/{vendorDigitalSubmissionId}/submit</code>.</p>
+<h4 id="breaking-change-26">Breaking change?</h4>
+<p>No, addition of a new read only value.</p>
+<hr />
+<h2 id="changelog-v1.2.0">Changelog v1.2.0</h2>
+<p>New release containing multiple major features like the
+implementation of:</p>
+<ul>
+<li>Digital submission for offers and participation-requests for
+vendors.</li>
+<li>The <code>invitation</code> process for tenders, competitions and
+study-contracts.</li>
+<li>RFI projects and publications which diverge from the regular
+procurement process. They use the new <code>no_process</code>
+process-type.</li>
+<li>Templates for projects and publications for proc offices.</li>
+<li>Copy function of existing projects und publication for proc
+offices.</li>
+<li>Export for sustainability-, WTO-, award- and
+call-for-bids-statistics.</li>
+</ul>
+<h3 id="implementation-of-the-invitation-process">Implementation of the
+invitation process</h3>
+<p>Implementation of the invitation process within the existing
+publications.</p>
+<h4 id="create-and-edit-pub-drafts-for-the-invitation-process">Create
+and edit pub drafts for the invitation process</h4>
+<p>Adaption of the existing api models for the <code>invitation</code>
+process on the following endpoints:</p>
+<ol type="1">
+<li><code>/pub-drafts/v1/tender/{pubDraftId}/dates</code></li>
+<li><code>/pub-drafts/v1/competition/{pubDraftId}/dates</code></li>
+<li><code>/pub-drafts/v1/study-contract/{pubDraftId}/dates</code></li>
+<li><code>/pub-drafts/v1/pd/{pubDraftId}/detail</code></li>
+<li><code>/publications/v1/project/{projectId}/publication-details/{publicationId}</code></li>
+<li><code>/pub-drafts/v1/tender/{pubDraftId}/invited-vendors</code></li>
+<li><code>/pub-drafts/v1/competition/{pubDraftId}/invited-vendors</code></li>
+<li><code>/pub-drafts/v1/study-contract/{pubDraftId}/invited-vendors</code></li>
+</ol>
+<p>Number 1 - 5 concerns date fields for the models in the
+<code>invitation</code> process:</p>
+<ul>
+<li>Replace the <code>expressionOfInterestUntil</code> field with
+<code>declineInvitationUntil</code>.</li>
+<li>Added the <code>publicationDate</code> field with the same usability
+as in the other processes.</li>
+<li><code>offerOpening</code> is mapped as <code>DateOptionalTime</code>
+in the <code>open</code> process</li>
+<li><code>offerOpening</code> and <code>offerOpeningNotes</code> are
+also available for tenders in the <code>invitation</code> process.</li>
+</ul>
+<p>Number 4-5, <code>referencingPub</code> on awards is now optional, as
+no reference to the tender may be added to an award in the
+<code>invitation</code> process if it is not publicly available.</p>
+<p>Number 4-8, new step / new property <code>invited-vendors</code> in
+the details.</p>
+<h4 id="proc-office-and-vendor-endpoints">Proc office and vendor
+endpoints</h4>
+<p>New endpoints for the proc office and the vendors to process
+invitations to a project.</p>
+<p>Proc office endpoint to invite vendors after the publication has been
+created<br />
+<code>/procoffices/v2/my/projects/{projectId}/involved-vendors/{vendorId}/invite</code>.
+Akin to the <code>involveVendorInProject</code> endpoint for projects in
+other process types.</p>
+<p>Vendor endpoint for the rejection of an invitation to a project.
+<code>/publications/v1/project/{projectId}/decline-invitation</code></p>
+<h4 id="breaking-change-27">Breaking change?</h4>
+<p>Yes, if you used the invitation models, but we don’t increase the api
+version for the affected endpoints as the invitation process was not
+previously supported and the existing models were marked as
+<code>experimental</code>.</p>
+<h3 id="implementation-of-the-rfi-publication">Implementation of the rfi
+publication</h3>
+<p>Implementation of the RFI publication with their own process type
+<code>no_process</code> meaning an RFI project does not follow the
+regular procurement lifecycle and is technically not even a procurement
+project.</p>
+<p>Renaming and amending of existing RFI detail models to
+<code>PubDraftRfiBase</code>, <code>PublicationRfiBase</code>. The
+<code>TBD</code> property was removed and the models now contains the
+fields used in the RFI.</p>
+<p>Added new endpoints to create and edit an RFI publication akin to the
+other publication types.</p>
+<ul>
+<li><code>/pub-drafts/v1/rfi/{pubDraftId}/project-info</code></li>
+<li><code>/pub-drafts/v1/rfi/{pubDraftId}/dates</code></li>
+<li><code>/pub-drafts/v1/rfi/{pubDraftId}/procurement</code></li>
+<li><code>/pub-drafts/v1/rfi/{pubDraftId}/terms</code></li>
+</ul>
+<p>Added the <code>request_for_information</code> to the
+<code>ProjectSearchPubTypeFilter</code> of the project search.</p>
+<p>New endpoint for marking externally submitted RFI submissions
+<code>/procoffices/v2/my/projects/{projectId}/involved-vendors/{vendorId}/rfi-physical-submission</code>.</p>
+<h4 id="breaking-change-28">Breaking change?</h4>
+<p>Yes, if you used already existing RFI models, but we don’t increase
+the api version for the affected endpoints as the RFI was not previously
+supported and the existing models in the detail were marked as
+<code>experimental</code>.</p>
+<h3 id="digital-submission">Digital submission</h3>
+<p>New endpoints for the digital submissions of tenders for interested
+vendors and for the proc office to view the submissions after the set
+deadlines are reached.</p>
+<p>New endpoints for the management of digital submissions by vendors
+for their projects.</p>
+<ul>
+<li><code>/vendors/v1/my/projects/{projectId}/digital-submissions</code></li>
+<li><code>/vendors/v1/my/projects/{projectId}/digital-submissions/{vendorDigitalSubmissionId}</code></li>
+<li><code>/vendors/v1/my/digital-submissions/{vendorDigitalSubmissionId}/submit</code></li>
+<li><code>/vendors/v1/my/digital-submissions/{vendorDigitalSubmissionId}/lots/{lotId}</code></li>
+</ul>
+<p>New endpoints for managing the submission documents:</p>
+<ul>
+<li><code>/vendors/v1/my/digital-submissions/{vendorDigitalSubmissionId}/documents</code></li>
+<li><code>/vendors/v1/my/digital-submissions/{vendorDigitalSubmissionId}/documents/{vendorDigitalSubmissionDocumentId}</code></li>
+<li><code>/vendors/v1/my/digital-submissions/{vendorDigitalSubmissionId}/documents/{vendorDigitalSubmissionDocumentId}/upload</code></li>
+</ul>
+<p>Note: the download of the submission documents is restricted to the
+proc office that manages the tender. This is due to security concerns
+regarding leaking of the submission documents within the vendor
+organization.</p>
+<p><code>/vendor-digital-submission-documents/v1/docs/{vendorDigitalSubmissionDocumentId}/token</code>
+<code>/vendor-digital-submission-documents/v1/docs/{vendorDigitalSubmissionDocumentId}?token={token}</code></p>
+<h3 id="proc-office-project-contributor">Proc Office Project
+Contributor</h3>
+<p>Creation of the new proc office member role
+<code>procurement_project_contributor</code>. New proc office members
+will start with this role. They have a reduced view, can only see the
+projects where they contribute and need to be invited by a
+<code>procurement_user</code> or <code>procurement_admin</code>. See the
+<code>x-roles</code> property on the endpoints.</p>
+<p>New proc office member hierarchy:</p>
+<ol type="1">
+<li>procurement_admin</li>
+<li>procurement_user</li>
+<li>procurement_project_contributor</li>
+</ol>
+<p><code>procurement_project_contributor</code> was added to the
+<code>ProcOfficeRole</code>, <code>AssignableRole</code> and
+<code>RedirectRole</code>.</p>
+<p>New endpoints for projects for proc office users and admins see the
+projects contributors and manage them.</p>
+<ul>
+<li><code>/procoffices/v1/my/projects/{projectId}/contributors</code></li>
+<li><code>/procoffices/v1/my/projects/{projectId}/contributors/{userId}</code></li>
+</ul>
+<p>Amendment of existing endpoints for the new role</p>
+<ul>
+<li><code>/procoffices/v1/po/{procOfficeId}/members</code>
+<ul>
+<li><code>listMembers</code> operation with new role in the response and
+new <code>role</code> and <code>search</code> parameters.<br />
+</li>
+</ul></li>
+<li><code>/users/v1/my/organizations</code> - entry with the new
+role.</li>
+</ul>
+<h3 id="vendor-profile">Vendor Profile</h3>
+<p>New endpoints to upload and manage vendor documents in the vendor
+profile. These documents can be used within a digital submission for a
+project</p>
+<ul>
+<li><code>/api/vendors/v1/vendor/{vendorId}/documents/{vendorDocumentId}</code></li>
+<li><code>/api/vendors/v1/vendor/{vendorId}/documents/{vendorDocumentId}/upload</code></li>
+<li><code>/api/vendors/v1/vendor/{vendorId}/documents/{vendorDocumentId}/token</code></li>
+<li><code>/api/vendors/v1/vendor/{vendorId}/documents/{vendorDocumentId}?token={token}</code></li>
+</ul>
+<p>Amendment of existing endpoints</p>
+<ul>
+<li><code>/vendors/v1/vendor/{vendorId}</code></li>
+<li><code>/vendors/v1/vendor/{vendorId}/public</code></li>
+</ul>
+<p>Added property <code>legalFormCode</code> to the vendor profile,
+replaces <code>legalForm</code> which was declared as deprecated and
+read-only value.</p>
+<p>Added property <code>businessPurpose</code> to public vendor
+directory.</p>
+<h4 id="deprecations">Deprecations</h4>
+<p>The property <code>legalForm</code> of the vendor is deprecated use
+the new <code>legalFormCode</code> field and migrate your data. The
+field will be removed in the next release / version.</p>
+<h4 id="breaking-change-29">Breaking change?</h4>
+<p>No, only additions and the obsolete field is read-only and marked as
+deprecated.</p>
+<h3 id="project-header">Project Header</h3>
+<p>The vendor actions required for digital submission are now mapped in
+the <code>PublicProjectActions</code>. The structure is akin to the
+<code>ProjectHeader</code> for the proc offices. The actions are divided
+according to the lot type of the tender.</p>
+<p>Endpoint
+<code>/publications/v1/project/{projectId}/project-header</code> is
+replaced by v2
+<code>/publications/v2/project/{projectId}/project-header</code>.</p>
+<h4 id="changes-to-the-vendor-status-and-actions">Changes to the vendor
+status and actions</h4>
+<p>Updated the values for the <code>vendorStatus</code> property, the
+<code>ProjectInterestStatus</code> is replaced by
+<code>ProjectInvitedOrInterestedVendorStatus</code> which contains the
+old <code>interest_shown</code>/ <code>interest_withdrawn</code> values
+in addition to the <code>invited</code> /
+<code>invitation_declined</code> values for projects in the
+<code>invitation</code> process.</p>
+<p>The <code>ProjectInterestStatus</code> remains in use for the mark
+interest <code>/publications/v1/project/{projectId}/interest</code>
+request.</p>
+<h4 id="breaking-change-30">Breaking change?</h4>
+<p>Yes, migrate to the v2 of the endpoint and handle the updated model.
+The actions are only available for vendors but the change affects all as
+the endpoint is used for the general project data.</p>
+<h3 id="offer-participation-protocol">offer / participation
+protocol</h3>
+<p>Endpoints adjusted to follow naming convention for consistency: -
+/procoffices/v1/my/projects/{projectId}/offer_protocol -&gt;
+/procoffices/v2/my/projects/{projectId}/offer-protocol -
+/procoffices/v1/my/projects/{projectId}/participation_protocol -&gt;
+/procoffices/v2/my/projects/{projectId}/participation-protocol</p>
+<p>Extended the model of the
+<code>/procoffices/v2/my/projects/{projectId}/offer-protocol</code> with
+the <code>offerDeadline</code> property.</p>
+<p>Extended the model of the
+<code>/procoffices/v2/my/projects/{projectId}/participation-protocol</code>
+with the <code>participationDeadline</code> property</p>
+<h4 id="breaking-change-31">Breaking change?</h4>
+<p>Yes</p>
+<h3 id="proc-office-involved-vendors">Proc office involved vendors</h3>
+<p>With a bugfix for the date-time field for the involved vendors of a
+project, the <code>updatedAt</code> property of the
+<code>InvolvedVendor</code> model was renamed to
+<code>statusChangedAt</code>. This was done to use a more descriptive
+name and prevent misunderstandings, as the model carries various dates
+and the property is the date-time for the displayed status.</p>
+<p>Also the property type was changed from <code>date-time</code> to the
+<code>DateOptionalTime</code> object, to correctly return values that
+exists for the recorded submission dates.</p>
+<p>The api version was bumped to v2 for the affected proc-office
+endpoints: *
+<code>/procoffices/v2/my/projects/{projectId}/involved-vendors</code> *
+<code>/procoffices/v2/my/projects/{projectId}/involved-vendors/{vendorId}</code>
+*
+<code>/procoffices/v2/my/projects/{projectId}/involved-vendors/{vendorId}/invite</code>
+*
+<code>/procoffices/v2/my/projects/{projectId}/involved-vendors/{vendorId}/offer-physical-submission</code>
+*
+<code>/procoffices/v2/my/projects/{projectId}/involved-vendors/{vendorId}/participation-physical-submission</code>
+*
+<code>/procoffices/v2/my/projects/{projectId}/involved-vendors/{vendorId}/rfi-physical-submission</code></p>
+<h4 id="breaking-change-32">Breaking change?</h4>
+<p>Yes, the model for the <code>InvolvedVendor</code>,
+<code>InvolvedVendorWithActions</code> &amp;
+<code>InvolvedVendorProtocolResult</code> changed, update the model and
+the version of the affected endpoints.</p>
+<h3 id="project-search-and-subscriptions-with-cpc-code">Project search
+and subscriptions with CPC code</h3>
+<p>New query parameter and property <code>cpcCodes</code> for the public
+search <code>/publications/v1/project/project-search</code> and the
+subscription model.</p>
+<h4 id="breaking-change-33">Breaking change?</h4>
+<p>No, <code>cpcCodes</code> is listed as an optional parameter /
+property.</p>
+<h3 id="cpc-code-cleanup">CPC Code Cleanup</h3>
+<p>Model for CPC code adjusted with other code models. On the
+<code>CPCCode</code> model, <code>id</code> renamed to
+<code>code</code>.</p>
+<p>Increased the version of the cpc code endpoint:
+<code>/codes/v2/cpc</code></p>
+<h4 id="breaking-change-34">Breaking change?</h4>
+<p>Yes, renamed property.</p>
+<h3 id="publication-templates">Publication Templates</h3>
+<p>Create publication templates using the
+<code>/pub-drafts/v1/pd/{pubDraftId}</code> create endpoint. New
+additional property <code>isTemplateflag</code>, set to
+<code>true</code> to create a template. Also
+<code>competence_centre_admin</code> can also create templates and only
+templates via this endpoint.</p>
+<p>Proc office can use the templates via the
+<code>/pub-drafts/v1/pd/{pubDraftId}</code> create endpoint. Set the new
+property <code>createFromTemplateProjectId</code> to create a new
+project based on a template. See the example payload in the api doc.</p>
+<p>In addition:</p>
+<p>Removal of the property <code>procOfficeId</code> from the create
+payload as this was redundant. The backend uses the
+<code>organizationId</code> from the user context to create the project
+and publication.</p>
+<p>New endpoints for obtaining and searching the templates.</p>
+<ul>
+<li><code>/procoffices/v1/my/pub-draft-templates</code></li>
+<li><code>/compcentres/v1/my/pub-draft-templates</code></li>
+</ul>
+<h4 id="breaking-change-35">Breaking change?</h4>
+<p>No. Because the creation of a publication with a different
+<code>procOfficeId</code> than the one in the user context was not
+technically possible and would result in a Bad Request. The request is
+still accepted when the <code>procOfficeId</code> is provided. It’s just
+ignored thus no breaking change due to the removal of the property.</p>
+<h3 id="copy-publication">Copy Publication</h3>
+<p>New endpoint to copy an existing base / initial publication
+<code>/pub-drafts/v1/pd/{pubDraftId}/copy</code>. Create a new project /
+draft publication on the basis of the referenced publication. Only
+initial publication types (<code>rfi</code>,
+<code>advanced_notice</code>, <code>call_for_bids</code>) can be the
+target of the copy. Can’t copy an award without a previous published
+tender publication.</p>
+<h3 id="changes-for-ted-update">Changes for TED-Update</h3>
+<p>With the update to TED-SDK 1.12.0 awards that are published on TED
+are now required to have a <code>price_of_selected_offers</code>
+defined. <code>price_range_of_selected_offers</code> is no longer
+allowed and will therefore produce a validation error.</p>
+<h3 id="error-codes-1">Error Codes</h3>
+<p>New Error Codes where added</p>
+<ul>
+<li><code>E0004</code> - The provided DUNS number has an invalid
+format!</li>
+<li><code>E0065</code> - Cannot delete offerType through correction</li>
+<li><code>E0066</code> - Missing request query parameter</li>
+<li><code>E0067</code> - Action not allowed when impersonating</li>
+<li><code>E0067</code> - Action is not allowed when impersonating</li>
+<li><code>E0068</code> - Document not found in object storage</li>
+<li><code>E0069</code> - Cannot change publication date rules</li>
+<li><code>E0070</code> - Cannot copy pub-draft</li>
+<li><code>E0071</code> - The search query contains at least one syntax
+error</li>
+<li><code>E0072</code> - Cannot delete the publication date exception,
+because there are already exists pub-drafts set for publication on that
+date</li>
+</ul>
+<h3 id="document-file-formats">Document File Formats</h3>
+<p>Allow additional file formats for documents. The following formats
+were added:</p>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 41%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr>
+<th>file ending</th>
+<th>canonical content types</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.7z</code></td>
+<td><code>application/x-7z-compressed</code></td>
+<td>7-zip archive</td>
+</tr>
+<tr>
+<td><code>.dwg</code></td>
+<td><code>application/acad</code>, <code>image/vnd.dwg</code></td>
+<td>AutoCAD file</td>
+</tr>
+<tr>
+<td><code>.01s</code></td>
+<td><code>application/octet-stream</code></td>
+<td>SIA 451-Datei (CRB proprietary format)</td>
+</tr>
+</tbody>
+</table>
+<p>Added the mentioned content types to
+<code>DocumentContentType</code>.</p>
+<p>Now files with these formats can be used for all document uploads and
+can be expected in document downloads.</p>
+<h4 id="breaking-change-36">Breaking change?</h4>
+<p>No, only additions to the <code>DocumentContentType</code> list.</p>
+<hr />
+<h2 id="changelog-v1.0.2">Changelog v1.0.2</h2>
+<h3 id="update-the-redirect-context-model">Update the Redirect Context
+Model</h3>
+<p>Adaptation of the enum of the <code>role</code> property of the
+<code>RedirectContext</code>.</p>
+<p>New enum <code>RedirectRole</code> that contains the previous roles
+of the previously used enum <code>AssignableRole</code> plus the new
+value <code>any</code> for better handling of the role change via
+redirect.</p>
+<p><code>any</code> - any role can be used in the redirect i.e. the user
+must log-in / be logged-in for the redirect.</p>
+<h4 id="breaking-change-37">Breaking change?</h4>
+<p>No, the payload only has an additional value.</p>
+<hr />
+<h2 id="changelog-v1.0.0">Changelog v1.0.0</h2>
+<p>Release version</p>
+</body>
+</html>
