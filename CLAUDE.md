@@ -256,6 +256,17 @@ Score (auch 3 Punkte), egal was die KI-Einschätzung zur Empfehlung sagt. Die
 KI trifft keine Rauswurf-Entscheidung aufgrund von Textinhalt/eigenem
 Ermessen. Sortierung ja (nach Score), Verwerfen nein.
 
+**Erweiterung der harten Regel auf den Mailto-Link (Bug gefunden+gefixt
+2026-10-07):** Im ersten Live-Testlauf hat die Routine beim zweiten Durchlauf
+fälschlich nur bei "empfohlenen" Treffern einen Mailto-Link gebaut und ihn bei
+"nicht empfohlen" weggelassen — das widerspricht der harten Regel genauso wie
+ein Verwerfen aus der Liste. **Der Mailto-Link hängt ausschliesslich davon ab,
+ob eine Kontakt-Email vorhanden ist — nie von Score, nie von der Empfehlung.**
+"Eher nein"/"Nein" in der Empfehlung darf höchstens einen zurückhaltenderen
+Ton im Mailtext selbst bewirken, aber nie dazu führen, dass der Link ganz
+fehlt. Routine-Prompt am 2026-10-07 entsprechend verschärft (explizite
+Warnung in Schritt 5, 6d und als Punkt 5 der "Wichtigen Fallen" in Schritt 8).
+
 ## Mailto-Text pro Treffer — PERSONALISIERT (nicht mehr generisch!)
 
 Wichtigste Änderung ggü. dem bisherigen generischen Text: der Mailto-Body wird
@@ -317,10 +328,29 @@ lässt: Geht auch telefonisch — Mittwoch 9 Uhr würde bei mir passen.
   Request for Information (RFI), study_contract→Studienauftrag,
   competition→Wettbewerb, advance_notice→Vorankündigung. Alle fünf final.
 - Excel wurde explizit abgelehnt ("Excel ist Handarbeit") — nicht erneut vorschlagen
-- Lokales Git-Repo existiert (`/Users/damirstojadinovic/simap`, Remote
-  `https://github.com/dastfaga/simap.git` gesetzt), aber **noch nicht gepusht**
-  (Nutzer: "push nein") — nicht eigenmächtig pushen ohne erneute Zustimmung
-- **Routine-Prompt wurde 2026-10-07 komplett überarbeitet (Schwellen 20/10 +
-  volle KI-Auswertung/personalisierter Mailtext eingebaut), aber noch NICHT
-  live getestet** — erster echter Testlauf ist der 08.10.2026 06:00 UTC
-  Vorab-Lauf. Ergebnis/Mailformat danach prüfen (`list_runs`/`get_run_log`).
+- Git-Repo ist gepusht: [github.com/dastfaga/simap](https://github.com/dastfaga/simap)
+  (Nutzer-Account `dastfaga`, nicht `poljgazjugovac` — git credential.helper
+  wurde auf `gh` umgestellt, Fallstrick: macOS-Keychain hatte alten Token
+  gecacht, `gh auth setup-git` hat das gefixt)
+
+## Cloud-Umgebung Netzwerk-Freigabe (final gelöst 2026-10-07)
+
+Die Cloud-Sandbox (Environment, in dem die Routine läuft) blockiert externe
+Hosts standardmässig. **Lösung:** Netzwerk-Zugriff in den Umgebungs-
+Einstellungen auf claude.ai/code (Environment-Selector, NICHT auf der
+Routine-Detailseite) auf "Custom" gestellt, `www.simap.ch`,
+`nominatim.openstreetmap.org`, `router.project-osrm.org` unter "Allowed
+domains" eingetragen (NICHT ins "Setup script"-Feld — das wurde einmal
+verwechselt und führte zu "command not found"). Umgebungs-ID hat sich dabei
+geändert zu `env_019M1yhNRD7tqheZDudLz7iW` (Routine referenziert automatisch
+die aktuell gewählte Umgebung).
+
+## Erster Live-Testlauf erfolgreich (2026-10-07)
+
+Manuell ausgelöst (`RemoteTrigger action:run`), Session `cse_01RYMcLHrsMcakGWsALrMimR`,
+289s Laufzeit, 19 Turns. Ergebnis: 3 Treffer im Fallback-Zeitfenster
+(03.–06.10., da Mittwoch kein Standard-Lauftag ist), 0 über Alarm-Schwelle
+(höchster Score 13), Mail erfolgreich an `damir.stojadinovic@fagaklima.ch`
+verschickt und vom Nutzer bestätigt ("mail erhalten alles gut"). Komplette
+Pipeline (API→Scoring→Geocoding→OSRM→KI-Auswertung→HTML→Gmail-Versand) damit
+end-to-end verifiziert. Nächster regulärer Lauf: Backfill-Serie ab 12.10.2026.
