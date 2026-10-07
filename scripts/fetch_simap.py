@@ -23,7 +23,7 @@ OSRM_BASE = "http://router.project-osrm.org/route/v1/driving"
 COMPANY_ADDRESS = "Helsinkistrasse 12, 4142 Muenchenstein"
 COMPANY_LATLON = (47.5320424, 7.6088254)
 
-ALARM_THRESHOLD = 24  # vorlaeufig (Skala jetzt 0-30 seit Standort-Score dazukam) - noch nicht final definiert
+ALARM_THRESHOLD = 20  # final (2026-10-07): identisch mit Gruen-Schwelle der Farbskala
 
 HOME_CANTONS = {"BS", "BL"}
 NEAR_KM_THRESHOLD = 50

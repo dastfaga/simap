@@ -30,10 +30,10 @@ def esc(s) -> str:
     return html.escape(str(s)) if s is not None else ""
 
 
-# Farbskala Score -> Ampel. Grenzen vorlaeufig, spaeter vom Nutzer festlegen.
+# Farbskala Score -> Ampel. Final (2026-10-07).
 # Gruen = Alarm-Schwelle (>= ALARM_THRESHOLD aus fetch_simap.py)
-GREEN_FROM = 24
-ORANGE_FROM = 14  # 14-23 = orange, < 14 = rot
+GREEN_FROM = 20
+ORANGE_FROM = 10  # 10-19 = orange, < 10 = rot
 
 
 def score_color(score: int) -> str:
